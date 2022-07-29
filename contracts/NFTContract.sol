@@ -14,9 +14,9 @@ contract NFTContract is ERC721, ERC721URIStorage{
     uint private constant MINT_PRICE = 0.01 ether;
     uint private constant MAX_AMOUNT_PER_TRANSACTION = 5;
 
-    address private owner;
+    address public owner;
 
-    constructor() ERC721("MyNFT", "MNFT"){
+    constructor() ERC721("King Street Analytics", "KSA"){
         owner = msg.sender;
     }
 
