@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract NFTContract is ERC721, ERC721URIStorage{
 
     using Counters for Counters.Counter;
-    Counters.Counter private tokedIds;
+    Counters.Counter private tokenIds;
 
     uint private constant MAX_SUPPLY = 100;
     uint private constant MINT_PRICE = 0.01 ether;
@@ -18,6 +18,20 @@ contract NFTContract is ERC721, ERC721URIStorage{
 
     constructor() ERC721("MyNFT", "MNFT"){
         owner = msg.sender;
+    }
+
+    function mint(uint amount) external payable {
+        require(tokenIds.current() < MAX_SUPPLY, "No NFTs left!");
+        require(amount <= 5, "Not allowed to mint more than 5 NFTs per transaction!");
+        require(msg.value == MINT_PRICE * amount, "Not enough ETH!");
+
+        for(uint i = 0; i < amount; i++){
+
+            uint tokenId = tokenIds.current();
+            tokenIds.increment();
+            _safeMint(msg.sender, tokenId);
+
+        }
     }
 
     //These functions need to be overridden for Solidity
