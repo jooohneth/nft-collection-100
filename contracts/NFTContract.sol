@@ -22,7 +22,7 @@ contract NFTContract is ERC721, ERC721URIStorage{
 
     function mint(uint amount) external payable {
         require(tokenIds.current() < MAX_SUPPLY, "No NFTs left!");
-        require(amount <= 5, "Not allowed to mint more than 5 NFTs per transaction!");
+        require(amount <= MAX_AMOUNT_PER_TRANSACTION, "Not allowed to mint more than 5 NFTs per transaction!");
         require(msg.value == MINT_PRICE * amount, "Not enough ETH!");
 
         for(uint i = 0; i < amount; i++){
@@ -32,6 +32,11 @@ contract NFTContract is ERC721, ERC721URIStorage{
             _safeMint(msg.sender, tokenId);
 
         }
+    }
+
+    function withdraw() external {
+        require(msg.sender == owner, "Not owner!");
+        payable(msg.sender).transfer(address(this).balance);
     }
 
     //These functions need to be overridden for Solidity
