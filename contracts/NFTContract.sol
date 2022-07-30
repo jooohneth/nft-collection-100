@@ -20,16 +20,21 @@ contract NFTContract is ERC721, ERC721URIStorage{
         owner = msg.sender;
     }
 
-    function mint(uint amount) external payable {
+    function _baseURI() internal pure override returns (string memory) {
+        return "https://gateway.pinata.cloud/ipfs/QmYEhCEARig7Ur1Qkf5YwJtTZmfjTyXWbcDTzi5axqjLaU";
+    }
+
+    function mint(uint amount, string memory uri) external payable {
         require(tokenIds.current() < MAX_SUPPLY, "No NFTs left!");
         require(amount <= MAX_AMOUNT_PER_TRANSACTION, "Not allowed to mint more than 5 NFTs per transaction!");
         require(msg.value == MINT_PRICE * amount, "Not enough ETH!");
 
         for(uint i = 0; i < amount; i++){
 
-            uint tokenId = tokenIds.current();
+            uint tokenID = tokenIds.current();
             tokenIds.increment();
-            _safeMint(msg.sender, tokenId);
+            _safeMint(msg.sender, tokenID);
+            _setTokenURI(tokenID, uri);
 
         }
     }
