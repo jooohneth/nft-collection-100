@@ -13,18 +13,14 @@ contract NFTContract is ERC721, ERC721URIStorage{
     uint private constant MAX_SUPPLY = 100;
     uint private constant MINT_PRICE = 0.01 ether;
     uint private constant MAX_AMOUNT_PER_TRANSACTION = 5;
-
+    string private constant TOKEN_URI = "ipfs://QmYEhCEARig7Ur1Qkf5YwJtTZmfjTyXWbcDTzi5axqjLaU";
     address public owner;
 
     constructor() ERC721("King Street Analytics", "KSA"){
         owner = msg.sender;
     }
 
-    function _baseURI() internal pure override returns (string memory) {
-        return "https://gateway.pinata.cloud/ipfs/QmYEhCEARig7Ur1Qkf5YwJtTZmfjTyXWbcDTzi5axqjLaU";
-    }
-
-    function mint(uint amount, string memory uri) external payable {
+    function mint(uint amount) external payable {
         require(tokenIds.current() < MAX_SUPPLY, "No NFTs left!");
         require(amount <= MAX_AMOUNT_PER_TRANSACTION, "Not allowed to mint more than 5 NFTs per transaction!");
         require(msg.value == MINT_PRICE * amount, "Not enough ETH!");
@@ -34,7 +30,7 @@ contract NFTContract is ERC721, ERC721URIStorage{
             uint tokenID = tokenIds.current();
             tokenIds.increment();
             _safeMint(msg.sender, tokenID);
-            _setTokenURI(tokenID, uri);
+            _setTokenURI(tokenID, TOKEN_URI);
 
         }
     }
