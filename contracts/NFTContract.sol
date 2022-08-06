@@ -37,7 +37,9 @@ contract NFTContract is ERC721, ERC721URIStorage{
 
     function withdraw() external {
         require(msg.sender == owner, "Not owner!");
-        payable(msg.sender).transfer(address(this).balance);
+
+        (bool success, ) = (msg.sender).call{value: address(this).balance}("");
+        require(success, "Tx failed!");
     }
 
     //These functions need to be overridden for Solidity
