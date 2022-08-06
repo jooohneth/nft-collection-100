@@ -20,7 +20,7 @@ contract NFTContract is ERC721, ERC721URIStorage{
         owner = msg.sender;
     }
 
-    function mint(uint amount) external payable {
+    function mint(uint amount) public payable {
         require(tokenIds.current() < MAX_SUPPLY, "No NFTs left!");
         require(amount <= MAX_AMOUNT_PER_TRANSACTION, "Not allowed to mint more than 5 NFTs per transaction!");
         require(msg.value == MINT_PRICE * amount, "Not enough ETH!");
@@ -33,6 +33,10 @@ contract NFTContract is ERC721, ERC721URIStorage{
             _setTokenURI(tokenID, TOKEN_URI);
 
         }
+    }
+
+    function mint() external payable {
+        mint(1);
     }
 
     function withdraw() external {
