@@ -2,13 +2,13 @@
 pragma solidity ^0.8.13;
 
 ///@notice Importing ERC721 standard from Openzeppelin with URI storage functionality
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 ///@notice Importing Ownable from Openzeppelin
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 ///@notice Import a Counter contract from Openzeppelin
-import "openzeppelin/contracts/utils/Counters.sol";
+import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 
 ///@title ERC721 contract
 ///@author John Nguyen | jooohn.eth
@@ -49,8 +49,8 @@ contract NFTContract is ERC721URIStorage, Ownable{
             uint tokenID = tokenIds.current();
             tokenIds.increment();
 
-            _safeMint(msg.sender, tokenID);
             _setTokenURI(tokenID, TOKEN_URI);
+            _safeMint(msg.sender, tokenID);
 
         }
     }
