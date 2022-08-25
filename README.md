@@ -1,3 +1,3 @@
 # NFT Collection of 100 generative Eyes
 
-### Link to contract on etherscan: https://rinkeby.etherscan.io/address/0xF68e5650aAB929520D25479F6Fe250BB4414A7cb#code
+[Contract deployed and verified on rinkeby etherscan](https://rinkeby.etherscan.io/address/0x969430Bdff9968a19637b0755d9ebC64B0685335)
