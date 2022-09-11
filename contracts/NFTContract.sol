@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 ///@notice Import a Counter contract from Openzeppelin
-import "openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
 ///@title ERC721 contract
 ///@author John Nguyen | jooohn.eth
